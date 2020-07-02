@@ -1,0 +1,45 @@
+-- =============================================
+-- Author:				Sergio Prieto Muete
+-- Create date:		09/12/2019
+-- User Modify:		Sergio Prieto Muete
+-- Modify date:		09/12/2019
+-- Description:		Depurar log de errores, se configura para ejecutarse al reiniciar el servidor
+-- Job Name:			DBA.SQL_DebugErrorLog
+-- Server:				*
+-- Platform:			SQL Server
+-- Type:					Job
+-- Schedule:			Start automatically when SQL Server Agent starts
+-- =============================================
+
+-- ** Reset error log **
+SP_CYCLE_ERRORLOG
+GO
+
+-- ** Save output in temporary table **
+CREATE TABLE #saveOutput([COUTPUT] [VARCHAR](1000))
+
+-- ** Declare variables **
+DECLARE @output VARCHAR(2000)
+
+-- ** Delete log files **
+INSERT INTO #saveOutput (COUTPUT) EXECUTE @output = xp_cmdshell 'DEL "e:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\Log\*1"'
+INSERT INTO #saveOutput (COUTPUT) EXECUTE @output = xp_cmdshell 'DEL "e:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\Log\*2"'
+INSERT INTO #saveOutput (COUTPUT) EXECUTE @output = xp_cmdshell 'DEL "e:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\Log\*3"'
+INSERT INTO #saveOutput (COUTPUT) EXECUTE @output = xp_cmdshell 'DEL "e:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\Log\*4"'
+INSERT INTO #saveOutput (COUTPUT) EXECUTE @output = xp_cmdshell 'DEL "e:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\Log\*5"'
+INSERT INTO #saveOutput (COUTPUT) EXECUTE @output = xp_cmdshell 'DEL "e:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\Log\*6"'
+INSERT INTO #saveOutput (COUTPUT) EXECUTE @output = xp_cmdshell 'DEL "e:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\Log\*7"'
+INSERT INTO #saveOutput (COUTPUT) EXECUTE @output = xp_cmdshell 'DEL "e:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\Log\*8"'
+INSERT INTO #saveOutput (COUTPUT) EXECUTE @output = xp_cmdshell 'DEL "e:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\Log\*9"'
+INSERT INTO #saveOutput (COUTPUT) EXECUTE @output = xp_cmdshell 'DEL "e:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\Log\*10"'
+INSERT INTO #saveOutput (COUTPUT) EXECUTE @output = xp_cmdshell 'DEL "e:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\Log\*trc"'
+INSERT INTO #saveOutput (COUTPUT) EXECUTE @output = xp_cmdshell 'DEL "e:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\Log\*txt"'
+INSERT INTO #saveOutput (COUTPUT) EXECUTE @output = xp_cmdshell 'DEL "e:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\Log\*xel"'
+INSERT INTO #saveOutput (COUTPUT) EXECUTE @output = xp_cmdshell 'DEL "e:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\Log\*OUT"'
+
+-- ** Delete null rows **
+DELETE FROM #saveOutput WHERE COUTPUT IS NULL
+SELECT COUTPUT FROM #saveOutput
+
+-- ** Debug temporary table **
+DROP TABLE #saveOutput

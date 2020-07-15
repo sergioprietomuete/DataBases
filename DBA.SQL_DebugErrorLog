@@ -1,14 +1,14 @@
 -- =============================================
--- Author:				Sergio Prieto Muete
+-- Author:		Sergio Prieto Muete
 -- Create date:		09/12/2019
 -- User Modify:		Sergio Prieto Muete
 -- Modify date:		09/12/2019
 -- Description:		Depurar log de errores, se configura para ejecutarse al reiniciar el servidor
--- Job Name:			DBA.SQL_DebugErrorLog
--- Server:				*
--- Platform:			SQL Server
--- Type:					Job
--- Schedule:			Start automatically when SQL Server Agent starts
+-- Job Name:		DBA.SQL_DebugErrorLog
+-- Server:		*
+-- Platform:		SQL Server
+-- Type:		Job
+-- Schedule:		Start automatically when SQL Server Agent starts
 -- =============================================
 
 -- ** Reset error log **
